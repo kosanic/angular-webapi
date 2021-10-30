@@ -1,6 +1,7 @@
 export interface Student {
-ime:string;
-prezime:string;
-datumRodjenja:Date;
-brojIndeksa:string;
+    studentIme: string;
+    studentPrezime: string;
+    datumRodjenja: Date;
+    brojIndeksa: string;
+    studentId: number;
 }

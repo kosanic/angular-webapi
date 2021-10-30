@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Web.API.Models
 {
-    public class StudentDto
+    public class StudentInputDto
     {
-        public int StudentId { get; set; } // ....
+        public int? StudentiId { get; set; }
 
         public string StudentIme { get; set; }
 
@@ -17,8 +16,5 @@ namespace Web.API.Models
         public DateTime DatumRodjenja { get; set; }
 
         public string BrojIndeksa { get; set; }
-        
     }
 }
-
-

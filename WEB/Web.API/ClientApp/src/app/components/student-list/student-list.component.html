@@ -2,10 +2,16 @@
 
 <ul *ngFor="let student of listaStudenata">
     <li>
-        {{student.ime}} 
-        {{student.prezime}} 
-        {{student.datumRodjenja}} 
+        {{student.studentIme}}
+        {{student.studentPrezime}}
+        {{student.datumRodjenja}}
         <b>{{student.brojIndeksa}} </b>
+        <button (click)="izbrisiStudenta(student)">
+            Izbrisi studenta</button>
     </li>
 </ul>
 
+
+
+<button (click)="kreirajStudenta()">Kreiraj studenta</button>
+<!-- <button (click)="izbrisiStudenta()">Izbrisi studenta</button> -->
