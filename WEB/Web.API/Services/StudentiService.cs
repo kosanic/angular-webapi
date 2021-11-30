@@ -15,42 +15,22 @@ namespace Web.API.Services
 
         public async Task<IEnumerable<StudentDto>> DohvatiSveStudenteAsync()
         {
-
             var query = $@"select Studentid, StudentIme, StudentPrezime, DatumRodjenja from dbo.Studenti";
 
             using (var connection = new SqlConnection(connectionString))
             {
                 var result = await connection.QueryAsync<StudentDto>(query);
-
                 return result;
             }
-
-
-            // await Task.Delay(1000); // await radi prikaza asinhrone metode
-
-            // var listaStudenata = new List<StudentDto>();
-
-            //listaStudenata.Add(new StudentDto { Ime = "Nenad", Prezime = "Kosanic", BrojIndeksa = "99/17", DatumRodjenja = DateTime.Now });
-            //listaStudenata.Add(new StudentDto { Ime = "Petar", Prezime = "Petrovic", BrojIndeksa = "99/17", DatumRodjenja = DateTime.Now });
-            //listaStudenata.Add(new StudentDto { Ime = "Vuk", Prezime = "Vucko", BrojIndeksa = "99/17", DatumRodjenja = DateTime.Now });
-            //listaStudenata.Add(new StudentDto { Ime = "Jeremija", Prezime = "Krstic", BrojIndeksa = "99/17", DatumRodjenja = DateTime.Now });
-
-            //return listaStudenata;
         }
-
       
         public async Task<int> KreirajStudentAsync(StudentDto obj)
         {
             var query = $@"
-
-
                                             insert into dbo.Studenti(BrojIndeksa, DatumRodjenja, StudentIme, StudentPrezime)
                                             values (@BrojIndeksa, @DatumRodjenja, @StudentIme, @StudentPrezime);
 
-
-                                select SCOPE_IDENTITY() 
-
-";
+                                select SCOPE_IDENTITY() ";
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -69,9 +49,8 @@ namespace Web.API.Services
 
                 return result == 1;
             }
-
-         
         }
+
         public async Task<int> IzmeniStudentaAsync(StudentDto obj)
         {
             var query = $@"update dbo.Studenti set StudentIme = 'xxxx', StudentPrezime = 'xxxx', BrojIndeksa = 'xxxx', DatumRodjenja = '19990308' where StudentiId =15
@@ -83,5 +62,15 @@ namespace Web.API.Services
             }
         }
 
+        public  async Task<StudentDto> DohvatiStudenta(int id)
+        {
+            var query = $@"select Studentid, StudentIme, StudentPrezime, DatumRodjenja from dbo.Studenti where Studentid = @id";
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var result = await connection.QueryFirstOrDefaultAsync<StudentDto>(query, new { id });
+                return result;
+            }
+        }
     }
 }

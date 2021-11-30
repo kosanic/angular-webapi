@@ -22,17 +22,23 @@ namespace Web.API.Controllers
             _query = query;
         }
 
+        [HttpGet("{StudentId}", Name = "DohvatiJednogStudenta")]
+        public async Task<IActionResult> DohvatiJednogStudenta([FromRoute] int StudentId)
+        {
+            var studenti = await _query.DohvatiStudenta(StudentId);
+
+            if(studenti == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(studenti);
+        }
+
         [HttpGet(Name ="DohvatiSveStudente")]
         public async Task<IActionResult> DohvatiSveStudente()
         {
-
-            //throw new Exception("greska na serveru");
-
             var studenti = await _query.DohvatiSveStudenteAsync();
-
-
-            // return StatusCode(200, studenti);
-
             return Ok(studenti);
         }
 
@@ -42,13 +48,13 @@ namespace Web.API.Controllers
         {
             var studentId = await _query.KreirajStudentAsync(input);
 
-            if(studentId > 0)
+            if (studentId > 0)
             {
-                return StatusCode(202, studentId);
+                var student = await _query.DohvatiStudenta(studentId);
+                return CreatedAtAction("DohvatiSveStudente", student);
             }
 
             throw new Exception("Desila se greska, student nije kreiran");
-
         }
 
         [HttpDelete("{StudentId}",Name ="IzbrisiStudenta")]
@@ -56,15 +62,23 @@ namespace Web.API.Controllers
         {
             var result = await _query.IzbrisiStudentaAsync(StudentId);
 
+            if (!result)
+            {
+                throw new Exception("Desila se greska, student nije obrisan");
+            }
+
             return NoContent();
         }
+
+
         [HttpPut("{StudentId}", Name = "IzmeniStudenta")]
         public async Task<IActionResult> IzmeniStudenta([FromBody] StudentDto input)
         {
             var studentId = await _query.IzmeniStudentaAsync(input);
+
             if (studentId > 0)
             {
-                return StatusCode(202, studentId);
+                return StatusCode(204, studentId);
             }
 
             throw new Exception("Desila se greska, student nije promenjen");

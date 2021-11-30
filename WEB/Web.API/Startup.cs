@@ -14,23 +14,18 @@ namespace Web.API
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            // dependency injection, "Linkovanje" klase i interfejsa
+            // dependency injection
 
             // AddTransient
-            // addScoped
-            // addSingleton
+            // AddScoped
+            // AddSingleton
 
             services.AddTransient<IStudentiService, StudentiService>();
-
-
-
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
@@ -69,9 +64,6 @@ namespace Web.API
 
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())

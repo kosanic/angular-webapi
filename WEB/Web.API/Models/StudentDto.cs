@@ -8,7 +8,7 @@ namespace Web.API.Models
 {
     public class StudentDto
     {
-        public int StudentId { get; set; } // ....
+        public int StudentId { get; set; } 
 
         public string StudentIme { get; set; }
 

@@ -10,6 +10,8 @@ namespace Web.API.Services
     {
         Task<IEnumerable<StudentDto>> DohvatiSveStudenteAsync();
 
+        Task<StudentDto> DohvatiStudenta(int id);
+
         Task<int> KreirajStudentAsync(StudentDto obj);
         Task<bool> IzbrisiStudentaAsync(int StudentId);
         Task<int> IzmeniStudentaAsync(StudentDto obj);
